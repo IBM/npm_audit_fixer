@@ -1,3 +1,3 @@
 # MAINTAINERS
 
-Christopher Ferris - chrisfer@us.ibm.com
+Ann Marie Fred - amfred@us.ibm.com
