@@ -1,12 +1,14 @@
 ## npm_audit_fixer
 This script makes it easier to keep Javascript repositories up to date with the latest patches, and resolve known vulnerabilities in open source npm packages.
 
-The recommended use is to run a daily build that includes this script, then review and merge the pull requests it creates.  If you prefer, you can commit changes directly to master, or run it from a command line.
+The recommended use is to run a daily build that includes this script, then review and merge the pull requests it creates.  If you prefer, you can commit changes directly to master.
+
+Running this script from a command line is generally NOT recommended, because it will change your Github repo settings.
 
 Features:
 - Works with github.com by default. Works with Github Enterprise servers by setting GITHUB_HOST="github.xxx.com".
 - For repos in an org, also set GITHUB_ORG="xyz".
-- Works with Either GITHUB_TOKEN or GITHUB_USER + GITHUB_PASSWORD. The Github access token must have repo permissions. If running this in a build, you may want to use a token for a functional ID.
+- Requires a GITHUB_TOKEN. The Github access token must have repo permissions. If running this in a build, you may want to use a token for a functional ID.
 - Requires GITHUB_EMAIL and GITHUB_NAME for the Github user.email and user.name. If running this in a build, you may want to use a functional ID email and name here.
 - Uses 'npx npm-check-updates -u' followed by 'npm install' and then 'npm audit fix'.
 - Alternatively, for Angular apps, you can use 'ng update --all --force' followed by 'npm install' and then 'npm audit fix'. Set UPGRADE_ANGULAR="true" for this behavior. This is unlikely to work automatically for major version upgrades.
