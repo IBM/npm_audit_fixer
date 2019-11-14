@@ -9,6 +9,8 @@
 # Optional environment variables:
 # UPDATE_MASTER="true" to commit to master instead of to a branch
 # UPGRADE_ANGULAR="true" to use `ng update --all --force` instead of `npx npm-check-updates -u`
+# ONLY_FIX_VULNERABILITIES="true" to exit without changes if `npm audit`
+#   doesn't report any known vulnerabilities.
 # GITHUB_HOST="github.xxx.com" for Github Enterprise servers
 # GITHUB_ORG="xyz" for the org or username in your repo path
 #
@@ -107,6 +109,19 @@ else
 fi
 
 npm install
+
+if [ "${ONLY_FIX_VULNERABILITIES}" = "true" ]; then
+    echo "checking for known vulnerabilities"
+    AUDIT_RESULT=`npm audit | (! grep -E "(Moderate | High | Critical | Low)" -B3 -A10)`
+    if [ -z "${AUDIT_RESULT}" ]; then
+        echo "there are no known vulnerabilities to fix, exiting"
+        exit 0
+    else
+    echo "found vulnerabilities"
+    fi
+fi
+
+echo "attempting to fix known vulnerabilities"
 npm audit fix
 
 if git diff --name-only | grep 'package.json\|package-lock.json'; then
