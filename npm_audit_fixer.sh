@@ -3,7 +3,7 @@
 # Prereq: The Artifactory credentials are already configured in an .npmrc file.
 #
 # Required environment variables:
-# GITHUB_TOKEN: The Github access token must have repo permissions.
+# GITHUB_TOKEN or GH_TOKEN: The Github access token must have repo permissions.
 # GITHUB_EMAIL and GITHUB_NAME for the Github user.email and user.name.
 #
 # Optional environment variables:
@@ -28,8 +28,8 @@
 
 set -x
 
-if  [ -z "${GITHUB_TOKEN}" ] ; then
-    echo "ERR: missing required GITHUB_TOKEN environment variable; exiting."
+if  [ -z "${GITHUB_TOKEN}" ] && [ -z "${GH_TOKEN}" ]; then
+    echo "ERR: missing required GITHUB_TOKEN or GH_TOKEN environment variable; exiting."
     exit 1
 fi
 
@@ -45,6 +45,10 @@ fi
 
 if [ -z "${GITHUB_ORG}" ]; then
     GITHUB_ORG="digital-marketplace"
+fi
+
+if [ -z "${GITHUB_TOKEN}" ]; then
+    export GITHUB_TOKEN="${GH_TOKEN}"
 fi
 
 install-hub-cli() {
