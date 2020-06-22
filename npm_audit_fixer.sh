@@ -48,15 +48,16 @@ if [ -z "${GITHUB_ORG}" ]; then
 fi
 
 install-hub-cli() {
+    HUB_VERSION=2.14.2
     if [ -z "$(which hub)" ]; then
-        curl -sLO "https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz"
-        tar -xzf "hub-linux-amd64-2.12.3.tgz"
+        curl -sLO "https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz"
+        tar -xzf "hub-linux-amd64-${HUB_VERSION}.tgz"
         RETURN_CODE=$?
         if [ "$RETURN_CODE" -ne 0 ]; then
             return $RETURN_CODE
         fi
 
-        sudo ./hub-linux-amd64-2.12.3/install
+        sudo ./hub-linux-amd64-${HUB_VERSION}/install
         RETURN_CODE=$?
         if [ "$RETURN_CODE" -ne 0 ]; then
             return $RETURN_CODE
@@ -64,8 +65,8 @@ install-hub-cli() {
 
         hub version
 
-        rm -rf ./hub-linux-amd64-2.12.3
-        rm -f hub-linux-amd64-2.12.3.tgz
+        rm -rf ./hub-linux-amd64-${HUB_VERSION}
+        rm -f hub-linux-amd64-${HUB_VERSION}.tgz
     else
         echo "found hub command, skipping install"
     fi
