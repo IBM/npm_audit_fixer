@@ -8,7 +8,7 @@ Running this script from a command line is generally NOT recommended, because it
 Features:
 - Works with github.com by default. Works with Github Enterprise servers by setting GITHUB_HOST="github.xxx.com".
 - For repos in an org, also set GITHUB_ORG="xyz".
-- Requires a GITHUB_TOKEN. The Github access token must have repo permissions. If running this in a build, you may want to use a token for a functional ID.
+- Requires a GITHUB_TOKEN or GH_TOKEN. The Github access token must have repo permissions. If running this in a build, you may want to use a token for a functional ID.
 - Requires GITHUB_EMAIL and GITHUB_NAME for the Github user.email and user.name. If running this in a build, you may want to use a functional ID email and name here.
 - Uses 'npx npm-check-updates -u' followed by 'npm install' and then 'npm audit fix'. If you need to customize the behavior of this command, use a '.ncurc.json' configuration file as described in the [npm-check-updates documentation](https://www.npmjs.com/package/npm-check-updates).
 - Alternatively, for Angular apps, you can use 'ng update --all --force' followed by 'npm install' and then 'npm audit fix'. Set UPGRADE_ANGULAR="true" for this behavior. This is unlikely to work automatically for major version upgrades.
